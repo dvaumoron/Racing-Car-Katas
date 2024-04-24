@@ -1,9 +1,5 @@
 package tpms
 
-type Alarm interface {
-	check()
-}
-
 type Sensor interface {
 	popNextPressurePsiValue() int
 }
@@ -23,12 +19,12 @@ func (a *alarm) check() {
 	}
 }
 
-func NewAlarm() Alarm {
+func NewAlarm(sensor Sensor) *alarm {
 	return &alarm{
 		lowPressureThreshold:  17,
 		highPressureThreshold: 21,
 		alarmOn:               false,
-		sensor:                NewSensor(),
+		sensor:                sensor,
 	}
 
 }
